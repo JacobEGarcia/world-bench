@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WORLD BENCH - Fun Per Parameter</title>
+<meta name="description" content="WORLD BENCH is the first interactive world-model benchmark ranked by fun per parameter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#FDFCF8;--ink:#161513;--accent:#0038A8;--grey:#77746c;--rule:1px solid #161513;--thin:1px solid #cfccc2}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.6}
+  ::selection{background:var(--accent);color:#fff}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid #b9c6e8}
+  a:hover{background:var(--accent);color:#fff;border-bottom-color:var(--accent)}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+  header.top{border-bottom:var(--rule);padding:14px 0}
+  header.top .wrap{display:flex;justify-content:space-between;align-items:baseline}
+  .brand{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;letter-spacing:.14em}
+  .brand b{background:var(--ink);color:var(--paper);padding:2px 8px;margin-right:8px}
+  .ver{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--grey);letter-spacing:.08em}
+  .titleblock{padding:56px 0 34px;border-bottom:var(--rule)}
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.02;letter-spacing:-.02em;font-weight:400}
+  h1 em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.32em;vertical-align:super;letter-spacing:.1em;color:var(--grey)}
+  .authors{margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--grey);letter-spacing:.04em;line-height:2}
+  .authors b{color:var(--ink);font-weight:500}
+  h2{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin:44px 0 14px;padding-top:10px;border-top:var(--rule)}
+  h2 .n{color:var(--accent);margin-right:10px}
+  p{margin:0 0 14px}
+  .abstract p{font-size:16px}
+  sup{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent)}
+  table.leader{width:100%;border-collapse:collapse;margin:20px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+  table.leader th{font-weight:600;text-align:left;padding:8px 10px;border-bottom:var(--rule);letter-spacing:.06em;font-size:11px;text-transform:uppercase;white-space:nowrap}
+  table.leader td{padding:9px 10px;border-bottom:var(--thin);vertical-align:top}
+  table.leader tr:hover td{background:#f3f1e8}
+  table.leader .r{font-family:Georgia,serif;font-size:20px;width:34px;color:var(--grey)}
+  table.leader td.num,table.leader th.num{text-align:right}
+  table.leader .mname{font-weight:600;white-space:nowrap}
+  table.leader .mname a{border:none}
+  table.leader .note{color:var(--grey);font-size:11px;line-height:1.5}
+  .tablenote{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--grey);margin:6px 0 0;line-height:1.7}
+  .demo-row{margin:16px 0 0}
+  .pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;border:var(--rule);padding:3px 10px;margin:0 6px 8px 0}
+  .pill:hover{background:var(--ink);color:var(--paper)}
+  ol.tasks{margin:0 0 14px 22px}
+  ol.tasks li{margin-bottom:8px}
+  .formula{font-family:'IBM Plex Mono',monospace;font-size:13px;border:var(--thin);background:#f6f4ec;padding:14px 18px;margin:12px 0 18px;text-align:center;letter-spacing:.04em}
+  .footnote{font-size:13.5px;color:#4c4a44;border-top:var(--thin);padding-top:10px;margin-top:26px}
+  .footnote p{margin-bottom:8px}
+  .footnote sup{margin-right:6px}
+  pre{font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:#161513;color:#e8e4d8;padding:18px;overflow-x:auto;line-height:1.7;margin:14px 0}
+  .warn{border:var(--rule);background:#fff;padding:16px 20px;font-size:14px;margin:18px 0}
+  .warn b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;display:block;margin-bottom:6px}
+  footer{margin-top:60px;border-top:var(--rule);padding:20px 0 46px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--grey);letter-spacing:.06em;line-height:2}
+  @media(max-width:640px){table.leader{font-size:11px}.hide-s{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><b>WB</b>WORLD BENCH</div>
+    <div class="ver">v0.1 &middot; SEPTEMBER 2026 &middot; PREPRINT</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="titleblock">
+    <h1>World Bench: Ranking Interactive World Models by Fun Per Parameter<em>&nbsp;[cs.AI]</em></h1>
+    <div class="authors">
+      <b>World Bench Consortium</b> &middot; Department of Recreational Computation (unaffiliated)<br>
+      Correspondence: none. The demos are linked below; you will not email us.
+    </div>
+  </div>
+
+  <h2><span class="n">0.</span>Abstract</h2>
+  <div class="abstract">
+    <p>Four interactive world models shipped within weeks of each other. Every one of them was evaluated on fidelity, temporal consistency, and controllability. These are admirable properties. They are not why you clicked the demo. You clicked the demo because you wanted to walk around in it.</p>
+    <p>We present <b>WORLD BENCH</b>, the first benchmark to rank world models by <b>fun per parameter (FPP)</b>: the amount of measured human enjoyment a system delivers, divided by the number of parameters it had to train to deliver it. We evaluate four 2026 systems - <b>Atlas</b> (World Labs), <b>GWM Worlds&nbsp;2</b> (Runway), <b>H3-World</b> (MiniMax-H3), and <b>SolarWM</b> (Wan2.2) - on a standardized battery of walking-around tasks, and we report the results with a straight face.<sup>1</sup></p>
+  </div>
+
+  <h2><span class="n">1.</span>Leaderboard</h2>
+  <p>Models are ranked by FUN/B: fun units per billion trained parameters. Where a lab declined to disclose parameter counts, we decline to rank. We asked. Twice.<sup>2</sup></p>
+  <table class="leader">
+    <thead>
+      <tr><th></th><th>Model</th><th class="hide-s">Lab</th><th class="num">Trained params</th><th class="num">FUN (0-10)</th><th class="num">FUN/B</th><th class="hide-s">Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="r">1</td>
+        <td class="mname"><a href="https://danzer1xxxxchan.github.io/H3-World/">H3-World</a></td>
+        <td class="hide-s">MiniMax-H3</td>
+        <td class="num">65.6M (LoRA)</td>
+        <td class="num">8.4 &plusmn; 0.6</td>
+        <td class="num"><b>128.0</b></td>
+        <td class="note hide-s">A rank-32 LoRA steering a 33B backbone. Efficiency king. The backbone did the reading; the LoRA learned to walk.</td>
+      </tr>
+      <tr>
+        <td class="r">2</td>
+        <td class="mname"><a href="https://junchao-cs.github.io/SolarWM-Web/">SolarWM</a></td>
+        <td class="hide-s">Wan2.2-5B</td>
+        <td class="num">5B</td>
+        <td class="num">7.1 &plusmn; 0.9</td>
+        <td class="num"><b>1.42</b></td>
+        <td class="note hide-s">Long-horizon consistency. Long-horizon fun. Open data, open weights, open season.</td>
+      </tr>
+      <tr>
+        <td class="r">3</td>
+        <td class="mname"><a href="https://runway.com/research/introducing-gwm-worlds-2">GWM Worlds 2</a></td>
+        <td class="hide-s">Runway</td>
+        <td class="num">undisclosed</td>
+        <td class="num">8.9 &plusmn; 0.4</td>
+        <td class="num"><b>-</b></td>
+        <td class="note hide-s">Real-time, playable, genuinely delightful. Parameter count withheld, FPP uncomputable. Convenient.</td>
+      </tr>
+      <tr>
+        <td class="r">4</td>
+        <td class="mname"><a href="https://www.worldlabs.ai/blog/atlas">Atlas</a></td>
+        <td class="hide-s">World Labs</td>
+        <td class="num">undisclosed</td>
+        <td class="num">9.3 &plusmn; 0.3</td>
+        <td class="num"><b>-</b></td>
+        <td class="note hide-s">Highest raw fun: one photo in, a walkable minute of 1440p world out. Omni model, omni redaction.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="tablenote">Table 1. Main results. FUN scores are means over the rater panel. FUN/B uses trained parameters only; pretrained backbones are excluded, as is tradition.<sup>3</sup> Undisclosed parameter counts are marked - and excluded from ranking, which is the entire point of the leaderboard and therefore deeply unfair.</p>
+
+  <div class="demo-row">
+    <span class="pill">DEMO: H3-World &rarr; danzer1xxxxchan.github.io/H3-World</span>
+    <span class="pill">DEMO: SolarWM &rarr; junchao-cs.github.io/SolarWM-Web</span>
+    <span class="pill">DEMO: GWM Worlds 2 &rarr; runway.com/research/introducing-gwm-worlds-2</span>
+    <span class="pill">DEMO: Atlas &rarr; worldlabs.ai/blog/atlas</span>
+  </div>
+
+  <h2><span class="n">2.</span>Methodology</h2>
+  <p>All evaluations were conducted on a single consumer laptop, in a browser, the way you were going to do it anyway. No special hardware was provisioned. No snacks were consumed in the hour before rating, to control for confounding joy.</p>
+  <p><b>Task battery.</b> Each model was driven through four standardized tasks:</p>
+  <ol class="tasks">
+    <li><b>T1 &middot; Corridor Walk.</b> The rater holds W for sixty seconds. Scored on the urge to keep holding W.</li>
+    <li><b>T2 &middot; Door Finding.</b> A door exists somewhere in the latent space. The rater attempts to reach it. Scored on whether the door, upon approach, is still a door.</li>
+    <li><b>T3 &middot; Vibe Traversal.</b> Unstructured exploration. Scored on the number of times the rater says "oh, whoa" involuntarily.</li>
+    <li><b>T4 &middot; Camera Drift Endurance.</b> The rater releases all keys and watches the world continue without them. Scored on existential texture.</li>
+  </ol>
+  <p><b>Rater panel.</b> Nine raters: eight graduate students and one dog owner. All raters reported prior exposure to at least one video game. Raters were instructed to have fun and were timed.<sup>4</sup></p>
+  <p><b>Metrics.</b> The composite FUN score (0-10) aggregates task scores with equal weighting, normalized against a control condition (a static JPEG of a hallway). Fun per parameter is then:</p>
+  <div class="formula">FPP = FUN / max(P<sub>trained</sub>, &epsilon;) &nbsp;&nbsp;&middot;&nbsp;&nbsp; reported as FUN/B (fun units per billion trained parameters)</div>
+  <div class="warn"><b>REPRODUCIBILITY STATEMENT</b>H3-World and SolarWM release weights and data; their scores are reproducible. Atlas and GWM Worlds 2 release vibes; their scores are not. We encourage all labs to disclose parameter counts so that they may be ranked by a parody benchmark with full scientific rigor.</div>
+
+  <h2><span class="n">3.</span>Limitations</h2>
+  <p>Fun is subjective. The sample size is small. The hallway JPEG was, in hindsight, a strong control and scored 1.2, which raises questions about the hallway. The dog owner was unavailable for comment. One rater attempted to add "the smell of rain in GWM Worlds 2" as a scoring dimension; this was rejected, then quietly adopted, then rejected again. We do not report inter-rater reliability because it would weaken the paper.</p>
+
+  <h2><span class="n">4.</span>Citation</h2>
+  <pre>@misc{worldbench2026,
+  title  = {World Bench: Ranking Interactive World Models by Fun Per Parameter},
+  author = {{World Bench Consortium}},
+  year   = {2026},
+  note   = {A parody. The demos are real. Go play them.}
+}</pre>
+
+  <div class="footnote">
+    <p><sup>1</sup>The straight face was itself evaluated and scored 6.8 &plusmn; 1.1.</p>
+    <p><sup>2</sup>Correspondence with the labs consisted of refreshing their blog posts. This counts.</p>
+    <p><sup>3</sup>Counting only trained parameters is standard practice and also the only reason H3-World wins. We are aware of what we did.</p>
+    <p><sup>4</sup>Instructed fun is still fun. This is a finding.</p>
+  </div>
+
+  <footer>
+    WORLD BENCH &middot; v0.1 &middot; SEPTEMBER 2026 &middot; NO RIGHTS RESERVED, NO CLAIMS MADE<br>
+    A parody benchmark. Atlas, GWM Worlds 2, H3-World and SolarWM belong to their respective labs. Links above go to the real demos.
+  </footer>
+</div>
+</body>
+</html>
